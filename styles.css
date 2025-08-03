@@ -683,6 +683,7 @@ body.dark-theme .timer-label {
     color: #6c757d;
     font-size: 0.85rem;
     margin-top: 0.25rem;
+    font-weight: 600;
 }
 
 /* Controls */
