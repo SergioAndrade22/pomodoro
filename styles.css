@@ -153,7 +153,7 @@ body.dark-theme .settings-container {
 }
 
 body.dark-theme .setting-group label {
-    color: #e0e0e0;
+    color: #f0f0f0;
 }
 
 body.dark-theme .setting-group input {
@@ -168,11 +168,11 @@ body.dark-theme .setting-group input:focus {
 
 body.dark-theme .setting-group input[readonly] {
     background: #2a2a2a;
-    color: #888;
+    color: #b0b0b0;
 }
 
 body.dark-theme .setting-group small {
-    color: #888;
+    color: #a0a0a0;
 }
 
 body.dark-theme .btn-secondary {
@@ -676,7 +676,7 @@ body.dark-theme .timer-label {
 
 .setting-group input[readonly] {
     background-color: #f8f9fa;
-    color: #6c757d;
+    color: #495057;
 }
 
 .setting-group small {
