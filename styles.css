@@ -35,8 +35,38 @@ header {
     align-items: flex-start;
 }
 
+.settings-toggle {
+    margin-right: 1rem;
+}
+
+.settings-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1) rotate(90deg);
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s ease;
+}
+
 .title-section {
     flex: 1;
+    text-align: center;
 }
 
 header h1 {
@@ -162,6 +192,10 @@ body.dark-theme .progress-text {
     color: #e0e0e0;
 }
 
+body.dark-theme .settings-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
 /* Dark theme toggle animation */
 body.dark-theme .sun-icon {
     opacity: 0;
@@ -171,6 +205,161 @@ body.dark-theme .sun-icon {
 body.dark-theme .moon-icon {
     opacity: 1;
     transform: rotate(0deg);
+}
+
+/* Settings Modal */
+.settings-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.settings-content {
+    background: rgba(255, 255, 255, 0.95);
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.settings-header h2 {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #f8f9fa;
+    color: #2c3e50;
+}
+
+.settings-body {
+    padding: 2rem;
+}
+
+.settings-description {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
+.sound-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.sound-option {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 10px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sound-option:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.sound-option input[type="checkbox"] {
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
+}
+
+.sound-option label {
+    font-weight: 500;
+    color: #2c3e50;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* Dark theme modal styles */
+body.dark-theme .settings-content {
+    background: rgba(30, 30, 30, 0.95);
+}
+
+body.dark-theme .settings-header {
+    border-bottom-color: #404040;
+}
+
+body.dark-theme .settings-header h2 {
+    color: #e0e0e0;
+}
+
+body.dark-theme .close-btn {
+    color: #b0b0b0;
+}
+
+body.dark-theme .close-btn:hover {
+    background: #3a3a3a;
+    color: #e0e0e0;
+}
+
+body.dark-theme .settings-description {
+    color: #b0b0b0;
+}
+
+body.dark-theme .sound-option {
+    background: #2a2a2a;
+}
+
+body.dark-theme .sound-option:hover {
+    background: #3a3a3a;
+}
+
+body.dark-theme .sound-option label {
+    color: #e0e0e0;
+}
+
+/* Modal animation */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* Timer Styles */

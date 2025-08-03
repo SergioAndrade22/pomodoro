@@ -12,12 +12,15 @@ class PomodoroTimer {
         this.interval = null;
         this.alarmAudio = null;
         this.alarmInterval = null;
+        this.backgroundSounds = new Map();
+        this.selectedSounds = new Set();
         
         this.initializeElements();
         this.bindEvents();
         this.updateDisplay();
         this.initializeAlarm();
         this.initializeTheme();
+        this.initializeBackgroundSounds();
     }
 
     initializeElements() {
@@ -59,6 +62,30 @@ class PomodoroTimer {
         if (themeToggle) {
             themeToggle.addEventListener('click', () => this.toggleTheme());
         }
+        
+        // Settings modal events
+        const settingsToggle = document.getElementById('settingsToggle');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettings = document.getElementById('closeSettings');
+        
+        if (settingsToggle) {
+            settingsToggle.addEventListener('click', () => this.openSettings());
+        }
+        
+        if (closeSettings) {
+            closeSettings.addEventListener('click', () => this.closeSettings());
+        }
+        
+        if (settingsModal) {
+            settingsModal.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    this.closeSettings();
+                }
+            });
+        }
+        
+        // Sound checkbox events
+        this.bindSoundCheckboxes();
     }
 
     initializeAlarm() {
@@ -102,6 +129,11 @@ class PomodoroTimer {
         this.pauseBtn.disabled = false;
         this.resetBtn.disabled = false;
         
+        // Play background sounds only during work time
+        if (this.isWorkTime && !this.isLongBreak) {
+            this.playBackgroundSounds();
+        }
+        
         this.interval = setInterval(() => {
             this.timeLeft--;
             
@@ -123,6 +155,9 @@ class PomodoroTimer {
         
         clearInterval(this.interval);
         
+        // Stop background sounds when paused
+        this.stopBackgroundSounds();
+        
         this.startBtn.disabled = false;
         this.pauseBtn.disabled = true;
         
@@ -140,6 +175,9 @@ class PomodoroTimer {
         
         // Stop alarm if it's playing
         this.stopAlarm();
+        
+        // Stop background sounds
+        this.stopBackgroundSounds();
         
         this.timeLeft = this.workTime * 60;
         this.updateDisplay();
@@ -173,6 +211,9 @@ class PomodoroTimer {
         // Mark current pomodoro as completed
         this.pomodoroDots[this.currentPomodoro - 1].classList.remove('active');
         this.pomodoroDots[this.currentPomodoro - 1].classList.add('completed');
+        
+        // Stop background sounds when work session ends
+        this.stopBackgroundSounds();
         
         // Check if this was the 4th pomodoro
         if (this.currentPomodoro === 4) {
@@ -358,6 +399,89 @@ class PomodoroTimer {
             body.classList.add('dark-theme');
             localStorage.setItem('pomodoro-theme', 'dark');
         }
+    }
+
+    initializeBackgroundSounds() {
+        const soundFiles = [
+            'lofi', 'blues', 'jazz', 'sea', 'wind', 'birds', 
+            'river', 'fire', 'rain_thunder', 'storm', 'heavy_rain', 'light_rain'
+        ];
+        
+        soundFiles.forEach(sound => {
+            const audio = new Audio(`assets/sounds/${sound}.mp3`);
+            audio.loop = true;
+            audio.volume = 0.3; // Set volume to 30%
+            this.backgroundSounds.set(sound, audio);
+        });
+        
+        // Load saved sound preferences
+        this.loadSoundPreferences();
+    }
+
+    bindSoundCheckboxes() {
+        const checkboxes = document.querySelectorAll('.sound-option input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const soundName = e.target.value;
+                if (e.target.checked) {
+                    this.selectedSounds.add(soundName);
+                } else {
+                    this.selectedSounds.delete(soundName);
+                }
+                this.saveSoundPreferences();
+            });
+        });
+    }
+
+    loadSoundPreferences() {
+        const savedSounds = localStorage.getItem('pomodoro-sounds');
+        if (savedSounds) {
+            const sounds = JSON.parse(savedSounds);
+            sounds.forEach(sound => {
+                this.selectedSounds.add(sound);
+                const checkbox = document.getElementById(`sound-${sound.replace('_', '-')}`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+        }
+    }
+
+    saveSoundPreferences() {
+        localStorage.setItem('pomodoro-sounds', JSON.stringify([...this.selectedSounds]));
+    }
+
+    openSettings() {
+        const modal = document.getElementById('settingsModal');
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+
+    closeSettings() {
+        const modal = document.getElementById('settingsModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    playBackgroundSounds() {
+        this.selectedSounds.forEach(soundName => {
+            const audio = this.backgroundSounds.get(soundName);
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => {
+                    console.log(`Could not play ${soundName}:`, e);
+                });
+            }
+        });
+    }
+
+    stopBackgroundSounds() {
+        this.backgroundSounds.forEach(audio => {
+            audio.pause();
+            audio.currentTime = 0;
+        });
     }
 }
 

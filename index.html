@@ -10,6 +10,11 @@
     <div class="container">
         <header>
             <div class="header-content">
+                <div class="settings-toggle">
+                    <button id="settingsToggle" class="settings-btn" aria-label="Open settings">
+                        <img src="assets/images/gear.png" alt="Settings" class="settings-icon">
+                    </button>
+                </div>
                 <div class="title-section">
                     <h1>Pomodoro Timer</h1>
                     <p>Stay focused and productive</p>
@@ -22,6 +27,69 @@
                 </div>
             </div>
         </header>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="settings-modal">
+            <div class="settings-content">
+                <div class="settings-header">
+                    <h2>Background Sounds</h2>
+                    <button id="closeSettings" class="close-btn">&times;</button>
+                </div>
+                <div class="settings-body">
+                    <p class="settings-description">Select sounds to play during work sessions:</p>
+                    <div class="sound-options">
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-lofi" value="lofi">
+                            <label for="sound-lofi">Lo-Fi Music</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-blues" value="blues">
+                            <label for="sound-blues">Blues</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-jazz" value="jazz">
+                            <label for="sound-jazz">Jazz</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-sea" value="sea">
+                            <label for="sound-sea">Ocean Waves</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-wind" value="wind">
+                            <label for="sound-wind">Wind</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-birds" value="birds">
+                            <label for="sound-birds">Birds</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-river" value="river">
+                            <label for="sound-river">River</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-fire" value="fire">
+                            <label for="sound-fire">Fireplace</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-rain-thunder" value="rain_thunder">
+                            <label for="sound-rain-thunder">Rain & Thunder</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-storm" value="storm">
+                            <label for="sound-storm">Storm</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-heavy-rain" value="heavy_rain">
+                            <label for="sound-heavy-rain">Heavy Rain</label>
+                        </div>
+                        <div class="sound-option">
+                            <input type="checkbox" id="sound-light-rain" value="light_rain">
+                            <label for="sound-light-rain">Light Rain</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <main>
             <!-- Timer Display -->
