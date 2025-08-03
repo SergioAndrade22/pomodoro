@@ -168,4 +168,21 @@ pomodoro/
 - ⚙️ **Settings**: Customizable work and break durations
 - 🔔 **Notifications**: Audio and browser notifications
 
-Enjoy your productive Pomodoro sessions! 🍅⏰🎵 
+Enjoy your productive Pomodoro sessions! 🍅⏰🎵
+
+## Credits & Attribution
+
+### Images
+All icons and images used in this application are from [Freepik - Flaticon](https://www.flaticon.com/):
+- Settings icon: [Settings icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/settings)
+- Theme icons (sun/moon)
+- Tomato indicators
+
+### Audio
+All background sounds and audio effects are from [Pixabay](https://pixabay.com/):
+- Ambient music tracks (Lo-Fi, Jazz, Blues)
+- Nature sounds (Ocean waves, Wind, Birds, River, Fireplace)
+- Weather effects (Rain, Thunder, Storm)
+- Timer alarm sound
+
+We thank these platforms for providing high-quality, royalty-free resources that make this application possible. 
