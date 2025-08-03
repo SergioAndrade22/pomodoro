@@ -449,16 +449,13 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 }
 
 /* Timer Styles */
-.timer-container {
-    margin-bottom: 2rem;
-}
-
 .timer-display {
-    font-size: 4rem;
+    font-size: 1.8rem;
     font-weight: 300;
     font-family: 'Courier New', monospace;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .timer-display.work {
@@ -474,11 +471,12 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 }
 
 .timer-label {
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    text-align: center;
 }
 
 .timer-label.work {
@@ -491,6 +489,95 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 
 .timer-label.long-break {
     color: #3498db;
+}
+
+/* Circular Timer Styles */
+.circular-timer-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.circular-timer {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.timer-background {
+    stroke: #e9ecef;
+    stroke-linecap: round;
+}
+
+.timer-progress {
+    stroke: #667eea;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.3s ease;
+    transform-origin: center;
+}
+
+/* Timer progress colors for different states */
+.circular-timer.work .timer-progress {
+    stroke: #e74c3c;
+}
+
+.circular-timer.break .timer-progress {
+    stroke: #27ae60;
+}
+
+.circular-timer.long-break .timer-progress {
+    stroke: #3498db;
+}
+
+.timer-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+/* Circular timer animations */
+.circular-timer.running .timer-progress {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Dark theme circular timer */
+body.dark-theme .timer-background {
+    stroke: #404040;
+}
+
+body.dark-theme .timer-progress {
+    stroke: #667eea;
+}
+
+body.dark-theme .timer-center {
+    background: rgba(30, 30, 30, 0.9);
+}
+
+/* Dark theme timer display styles */
+body.dark-theme .timer-display {
+    color: #ecf0f1;
+}
+
+body.dark-theme .timer-label {
+    color: #b0b0b0;
 }
 
 /* Progress Indicators */

@@ -18,6 +18,7 @@ class PomodoroTimer {
         this.initializeElements();
         this.bindEvents();
         this.updateDisplay();
+        this.initializeCircularTimer();
         this.initializeAlarm();
         this.initializeTheme();
         this.initializeBackgroundSounds();
@@ -29,6 +30,10 @@ class PomodoroTimer {
         this.minutesDisplay = document.getElementById('minutes');
         this.secondsDisplay = document.getElementById('seconds');
         this.timerLabel = document.getElementById('timerLabel');
+        
+        // Circular timer elements
+        this.circularTimer = document.getElementById('circularTimer');
+        this.timerProgress = document.getElementById('timerProgress');
         
         // Progress elements
         this.currentPomodoroDisplay = document.getElementById('currentPomodoro');
@@ -45,6 +50,43 @@ class PomodoroTimer {
         
         // Status element
         this.statusElement = document.getElementById('status');
+    }
+
+    initializeCircularTimer() {
+        // Set initial progress
+        this.updateCircularTimer();
+    }
+
+    updateCircularTimer() {
+        const totalTime = this.isWorkTime ? this.workTime * 60 : 
+                         this.isLongBreak ? this.longBreakTime * 60 : 
+                         this.breakTime * 60;
+        const progress = 1 - (this.timeLeft / totalTime);
+        
+        // Calculate stroke-dashoffset (339.292 is the circumference)
+        const circumference = 339.292;
+        const offset = circumference - (progress * circumference);
+        
+        // Update the progress circle
+        this.timerProgress.style.strokeDashoffset = offset;
+        
+        // Update timer colors based on current state
+        this.circularTimer.className = 'circular-timer';
+        
+        if (this.isLongBreak) {
+            this.circularTimer.classList.add('long-break');
+        } else if (this.isWorkTime) {
+            this.circularTimer.classList.add('work');
+        } else {
+            this.circularTimer.classList.add('break');
+        }
+        
+        // Add/remove running class for animation
+        if (this.isRunning) {
+            this.circularTimer.classList.add('running');
+        } else {
+            this.circularTimer.classList.remove('running');
+        }
     }
 
     bindEvents() {
@@ -113,6 +155,7 @@ class PomodoroTimer {
         if (!this.isRunning) {
             this.timeLeft = this.workTime * 60;
             this.updateDisplay();
+            this.updateCircularTimer();
         }
     }
 
@@ -183,6 +226,7 @@ class PomodoroTimer {
         this.updateDisplay();
         this.updateProgress();
         this.updateStatus();
+        this.updateCircularTimer();
         
         this.startBtn.disabled = false;
         this.pauseBtn.disabled = true;
@@ -223,6 +267,7 @@ class PomodoroTimer {
             this.timerLabel.textContent = 'Long Break';
             this.updateDisplay();
             this.updateStatus();
+            this.updateCircularTimer();
         } else {
             // Start regular break
             this.currentPomodoro++;
@@ -232,6 +277,7 @@ class PomodoroTimer {
             this.updateDisplay();
             this.updateProgress();
             this.updateStatus();
+            this.updateCircularTimer();
         }
         
         this.startBtn.disabled = false;
@@ -254,6 +300,7 @@ class PomodoroTimer {
             this.updateDisplay();
             this.updateProgress();
             this.updateStatus();
+            this.updateCircularTimer();
             
             this.startBtn.disabled = false;
             this.pauseBtn.disabled = true;
@@ -267,6 +314,7 @@ class PomodoroTimer {
             this.timerLabel.textContent = 'Work Time';
             this.updateDisplay();
             this.updateStatus();
+            this.updateCircularTimer();
             
             this.startBtn.disabled = false;
             this.pauseBtn.disabled = true;
@@ -294,6 +342,9 @@ class PomodoroTimer {
             this.timerDisplay.classList.add('break');
             this.timerLabel.classList.add('break');
         }
+        
+        // Update circular timer
+        this.updateCircularTimer();
     }
 
     updateProgress() {

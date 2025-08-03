@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Timer</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/images/tomato.png">
 </head>
 <body>
     <div class="container">
@@ -92,12 +93,21 @@
         </div>
 
         <main>
-            <!-- Timer Display -->
-            <div class="timer-container">
-                <div class="timer-display" id="timerDisplay">
-                    <span id="minutes">25</span>:<span id="seconds">00</span>
+            <!-- Circular Timer with Integrated Display -->
+            <div class="circular-timer-container">
+                <div class="circular-timer" id="circularTimer">
+                    <svg class="timer-svg" viewBox="0 0 120 120">
+                        <circle class="timer-background" cx="60" cy="60" r="54" stroke-width="8" fill="none"/>
+                        <circle class="timer-progress" id="timerProgress" cx="60" cy="60" r="54" stroke-width="8" fill="none" 
+                                stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+                    </svg>
+                    <div class="timer-center">
+                        <div class="timer-display" id="timerDisplay">
+                            <span id="minutes">25</span>:<span id="seconds">00</span>
+                        </div>
+                        <div class="timer-label" id="timerLabel">Work Time</div>
+                    </div>
                 </div>
-                <div class="timer-label" id="timerLabel">Work Time</div>
             </div>
 
             <!-- Pomodoro Progress -->
