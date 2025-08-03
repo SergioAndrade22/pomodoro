@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="title-section">
+                    <h1>Pomodoro Timer</h1>
+                    <p>Stay focused and productive</p>
+                </div>
+                <div class="theme-toggle">
+                    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+                        <img src="assets/images/sun.png" alt="Light theme" class="theme-icon sun-icon">
+                        <img src="assets/images/moon.png" alt="Dark theme" class="theme-icon moon-icon">
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Timer Display -->
+            <div class="timer-container">
+                <div class="timer-display" id="timerDisplay">
+                    <span id="minutes">25</span>:<span id="seconds">00</span>
+                </div>
+                <div class="timer-label" id="timerLabel">Work Time</div>
+            </div>
+
+            <!-- Pomodoro Progress -->
+            <div class="progress-container">
+                <div class="progress-label">Pomodoro Progress</div>
+                <div class="pomodoro-indicators">
+                    <div class="pomodoro-dot active" data-pomodoro="1"></div>
+                    <div class="pomodoro-dot" data-pomodoro="2"></div>
+                    <div class="pomodoro-dot" data-pomodoro="3"></div>
+                    <div class="pomodoro-dot" data-pomodoro="4"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="currentPomodoro">1</span> of 4
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="settings-container">
+                <div class="setting-group">
+                    <label for="workTime">Work Time (minutes):</label>
+                    <input type="number" id="workTime" value="25" min="5" max="60">
+                </div>
+                <div class="setting-group">
+                    <label for="breakTime">Break Time (minutes):</label>
+                    <input type="number" id="breakTime" value="5" min="1" max="30" readonly>
+                    <small>(20% of work time)</small>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="startBtn" class="btn btn-primary">Start Pomodoro</button>
+                <button id="pauseBtn" class="btn btn-secondary" disabled>Pause</button>
+                <button id="resetBtn" class="btn btn-secondary" disabled>Reset</button>
+            </div>
+
+            <!-- Status -->
+            <div class="status" id="status">
+                Ready to start your first Pomodoro!
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
