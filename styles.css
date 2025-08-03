@@ -737,29 +737,29 @@ body.dark-theme .timer-label {
 /* Status */
 .status {
     padding: 1rem;
-    background: #e8f5e8;
+    background: #F1F9F1;
     border-radius: 10px;
-    color: #27ae60;
+    color: #135830;
     font-weight: 600;
-    border-left: 4px solid #27ae60;
+    border-left: 4px solid #135830;
 }
 
 .status.work {
-    background: #ffeaea;
-    color: #e74c3c;
-    border-left-color: #e74c3c;
+    background: #FFF0F0;
+    color: #9A2113;
+    border-left-color: #9A2113;
 }
 
 .status.break {
-    background: #e8f5e8;
-    color: #27ae60;
-    border-left-color: #27ae60;
+    background: #F1F9F1;
+    color: #135830;
+    border-left-color: #135830;
 }
 
 .status.long-break {
-    background: #e3f2fd;
-    color: #3498db;
-    border-left-color: #3498db;
+    background: #F1F8FE;
+    color: #15547E;
+    border-left-color: #15547E;
 }
 
 /* Responsive Design */
