@@ -567,8 +567,24 @@ class PomodoroTimer {
                 const soundName = e.target.value;
                 if (e.target.checked) {
                     this.selectedSounds.add(soundName);
+                    // Play the sound immediately if timer is running and in work time
+                    if (this.isRunning && this.isWorkTime && !this.isLongBreak) {
+                        const audio = this.backgroundSounds.get(soundName);
+                        if (audio) {
+                            audio.currentTime = 0;
+                            audio.play().catch(e => {
+                                console.log(`Could not play ${soundName}:`, e);
+                            });
+                        }
+                    }
                 } else {
                     this.selectedSounds.delete(soundName);
+                    // Stop the sound immediately if it's playing
+                    const audio = this.backgroundSounds.get(soundName);
+                    if (audio) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
                 }
                 this.saveSoundPreferences();
             });
@@ -608,9 +624,18 @@ class PomodoroTimer {
     }
 
     playBackgroundSounds() {
+        // First, stop any sounds that are no longer selected
+        this.backgroundSounds.forEach((audio, soundName) => {
+            if (!this.selectedSounds.has(soundName) && !audio.paused) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        });
+        
+        // Then play all selected sounds
         this.selectedSounds.forEach(soundName => {
             const audio = this.backgroundSounds.get(soundName);
-            if (audio) {
+            if (audio && audio.paused) {
                 audio.currentTime = 0;
                 audio.play().catch(e => {
                     console.log(`Could not play ${soundName}:`, e);
