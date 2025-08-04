@@ -120,9 +120,10 @@ class PomodoroTimer {
         this.pauseBtn.addEventListener('click', () => this.pause());
         this.resetBtn.addEventListener('click', () => this.reset());
         
-        // Settings events
-        this.workTimeInput.addEventListener('input', () => this.updateBreakTime());
-        this.workTimeInput.addEventListener('change', () => this.updateBreakTime());
+        // Settings events - MODIFIED
+        // Remove the 'input' event listener that was causing immediate validation
+        this.workTimeInput.addEventListener('blur', () => this.validateAndUpdateBreakTime());
+        this.workTimeInput.addEventListener('change', () => this.validateAndUpdateBreakTime());
         
         // Theme toggle event
         const themeToggle = document.getElementById('themeToggle');
@@ -169,10 +170,11 @@ class PomodoroTimer {
         this.alarmAudio.loop = true; // Loop the alarm
     }
 
-    updateBreakTime() {
+    // Add a new method for validation and updating break time
+    validateAndUpdateBreakTime() {
         let newWorkTime = parseInt(this.workTimeInput.value) || 25;
         
-        // Enforce minimum work time of 5 minutes
+        // Enforce minimum work time of 5 minutes only when input loses focus
         if (newWorkTime < 5) {
             newWorkTime = 5;
             this.workTimeInput.value = 5;
