@@ -527,6 +527,11 @@ class PomodoroTimer {
             this.workTime = parseFloat(JSON.parse(savedConfig).workTime);
             this.breakTime = parseFloat(JSON.parse(savedConfig).breakTime);
             this.longBreakTime = this.workTime + this.breakTime;
+        } else {
+            this.workTime = 25;
+            this.breakTime = this.workTime/5;
+            this.longBreakTime = this.workTime + this.breakTime;
+
         }
     }
 
