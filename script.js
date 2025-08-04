@@ -86,13 +86,6 @@ class PomodoroTimer {
         } else {
             this.circularTimer.classList.add('break');
         }
-        
-        // Add/remove running class for animation
-        if (this.isRunning) {
-            this.circularTimer.classList.add('running');
-        } else {
-            this.circularTimer.classList.remove('running');
-        }
     }
 
     toggleTheme() {
