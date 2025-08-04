@@ -98,13 +98,16 @@ class PomodoroTimer {
     toggleTheme() {
         const body = document.body;
         const isDark = body.classList.contains('dark-theme');
+        const themeToggle = document.getElementById('themeToggle');
         
         if (isDark) {
             body.classList.remove('dark-theme');
             localStorage.setItem('pomodoro-theme', 'light');
+            if (themeToggle) themeToggle.checked = false;
         } else {
             body.classList.add('dark-theme');
             localStorage.setItem('pomodoro-theme', 'dark');
+            if (themeToggle) themeToggle.checked = true;
         }
         
         // Update volume slider background when theme changes
@@ -124,7 +127,10 @@ class PomodoroTimer {
         // Theme toggle event
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
-            themeToggle.addEventListener('click', () => this.toggleTheme());
+            // Set initial state based on current theme
+            themeToggle.checked = document.body.classList.contains('dark-theme');
+            
+            themeToggle.addEventListener('change', () => this.toggleTheme());
         }
         
         // Volume control event
@@ -461,8 +467,13 @@ class PomodoroTimer {
     initializeTheme() {
         // Check for saved theme preference or default to light theme
         const savedTheme = localStorage.getItem('pomodoro-theme');
+        const themeToggle = document.getElementById('themeToggle');
+        
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
+            if (themeToggle) themeToggle.checked = true;
+        } else {
+            if (themeToggle) themeToggle.checked = false;
         }
     }
 
