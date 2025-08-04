@@ -55,6 +55,11 @@
                 </div>
                 <div class="settings-body">
                     <p class="settings-description">Select sounds to play during work sessions:</p>
+                    <div class="volume-control">
+                        <label for="volume-slider">Volume:</label>
+                        <input type="range" id="volume-slider" min="0" max="100" value="30" class="volume-slider">
+                        <span id="volume-value">30%</span>
+                    </div>
                     <div class="sound-options">
                         <div class="sound-option">
                             <input type="checkbox" id="sound-lofi" value="lofi">
@@ -170,4 +175,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

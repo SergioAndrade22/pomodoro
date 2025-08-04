@@ -14,6 +14,7 @@ class PomodoroTimer {
         this.alarmInterval = null;
         this.backgroundSounds = new Map();
         this.selectedSounds = new Set();
+        this.volume = 0.3; // Default volume (30%)
         
         this.initializeElements();
         this.bindEvents();
@@ -22,6 +23,7 @@ class PomodoroTimer {
         this.initializeAlarm();
         this.initializeTheme();
         this.initializeBackgroundSounds();
+        this.initializeVolumeControl();
     }
 
     initializeElements() {
@@ -42,6 +44,10 @@ class PomodoroTimer {
         // Settings elements
         this.workTimeInput = document.getElementById('workTime');
         this.breakTimeInput = document.getElementById('breakTime');
+        
+        // Volume control elements
+        this.volumeSlider = document.getElementById('volume-slider');
+        this.volumeValue = document.getElementById('volume-value');
         
         // Control elements
         this.startBtn = document.getElementById('startBtn');
@@ -89,6 +95,22 @@ class PomodoroTimer {
         }
     }
 
+    toggleTheme() {
+        const body = document.body;
+        const isDark = body.classList.contains('dark-theme');
+        
+        if (isDark) {
+            body.classList.remove('dark-theme');
+            localStorage.setItem('pomodoro-theme', 'light');
+        } else {
+            body.classList.add('dark-theme');
+            localStorage.setItem('pomodoro-theme', 'dark');
+        }
+        
+        // Update volume slider background when theme changes
+        this.updateVolumeSliderBackground();
+    }
+
     bindEvents() {
         // Button events
         this.startBtn.addEventListener('click', () => this.start());
@@ -103,6 +125,11 @@ class PomodoroTimer {
         const themeToggle = document.getElementById('themeToggle');
         if (themeToggle) {
             themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+        
+        // Volume control event
+        if (this.volumeSlider) {
+            this.volumeSlider.addEventListener('input', () => this.updateVolume());
         }
         
         // Settings modal events
@@ -439,17 +466,70 @@ class PomodoroTimer {
         }
     }
 
-    toggleTheme() {
-        const body = document.body;
-        const isDark = body.classList.contains('dark-theme');
-        
-        if (isDark) {
-            body.classList.remove('dark-theme');
-            localStorage.setItem('pomodoro-theme', 'light');
-        } else {
-            body.classList.add('dark-theme');
-            localStorage.setItem('pomodoro-theme', 'dark');
+    initializeVolumeControl() {
+        // Load saved volume preference or use default
+        const savedVolume = localStorage.getItem('pomodoro-volume');
+        if (savedVolume !== null) {
+            this.volume = parseFloat(savedVolume);
+            if (this.volumeSlider) {
+                this.volumeSlider.value = this.volume * 100;
+            }
+            if (this.volumeValue) {
+                this.volumeValue.textContent = `${Math.round(this.volume * 100)}%`;
+            }
+            
+            // Update slider background
+            this.updateVolumeSliderBackground();
         }
+        
+        // Apply volume to all audio elements
+        this.applyVolumeToAllSounds();
+    }
+
+    updateVolume() {
+        if (!this.volumeSlider) return;
+        
+        // Get volume value (0-1)
+        this.volume = this.volumeSlider.value / 100;
+        
+        // Update display
+        if (this.volumeValue) {
+            this.volumeValue.textContent = `${Math.round(this.volume * 100)}%`;
+        }
+        
+        // Save preference
+        localStorage.setItem('pomodoro-volume', this.volume.toString());
+        
+        // Apply to all audio elements
+        this.applyVolumeToAllSounds();
+        
+        // Update slider background
+        this.updateVolumeSliderBackground();
+    }
+
+    applyVolumeToAllSounds() {
+        // Apply volume to all background sounds
+        this.backgroundSounds.forEach(audio => {
+            audio.volume = this.volume;
+        });
+        
+        // Also apply to alarm sound
+        if (this.alarmAudio) {
+            this.alarmAudio.volume = this.volume;
+        }
+    }
+
+    updateVolumeSliderBackground() {
+        if (!this.volumeSlider) return;
+        
+        const value = this.volumeSlider.value;
+        const percentage = value + '%';
+        
+        // Update the background gradient to reflect current value
+        const isDarkTheme = document.body.classList.contains('dark-theme');
+        const backgroundColor = isDarkTheme ? '#555' : '#ddd';
+        
+        this.volumeSlider.style.background = `linear-gradient(to right, #667eea 0%, #667eea ${percentage}, ${backgroundColor} ${percentage}, ${backgroundColor} 100%)`;
     }
 
     initializeBackgroundSounds() {
@@ -461,7 +541,7 @@ class PomodoroTimer {
         soundFiles.forEach(sound => {
             const audio = new Audio(`assets/sounds/${sound}.mp3`);
             audio.loop = true;
-            audio.volume = 0.3; // Set volume to 30%
+            audio.volume = this.volume; // Use the volume property
             this.backgroundSounds.set(sound, audio);
         });
         
@@ -544,4 +624,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
     }
-}); 
+});
