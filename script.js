@@ -1,8 +1,10 @@
 class PomodoroTimer {
+    workTime; // minutes
+    breakTime; // minutes
+    longBreakTime; // minutes (work + break)
+
     constructor() {
-        this.workTime = 25; // minutes
-        this.breakTime = 5; // minutes
-        this.longBreakTime = 30; // minutes (work + break)
+        this.initializeSettingsControl();
         this.currentPomodoro = 1;
         this.isWorkTime = true;
         this.isLongBreak = false;
@@ -132,13 +134,34 @@ class PomodoroTimer {
             this.volumeSlider.addEventListener('input', () => this.updateVolume());
         }
         
-        // Settings modal events
-        const settingsToggle = document.getElementById('settingsToggle');
+        // Sounds modal events
+        const soundsToggle = document.getElementById('soundsToggle');
+        const soundsModal = document.getElementById('soundsModal');
+        const closeSounds = document.getElementById('closeSounds');
+        
+        if (soundsToggle) {
+            soundsToggle.addEventListener('click', () => this.openSounds());
+        }
+        
+        if (closeSounds) {
+            closeSounds.addEventListener('click', () => this.closeSounds());
+        }
+        
+        if (soundsModal) {
+            soundsModal.addEventListener('click', (e) => {
+                if (e.target === soundsModal) {
+                    this.closeSounds();
+                }
+            });
+        }
+
+        // Settings modal event
+        const settingsBtn = document.getElementById('settingsBtn');
         const settingsModal = document.getElementById('settingsModal');
         const closeSettings = document.getElementById('closeSettings');
         
-        if (settingsToggle) {
-            settingsToggle.addEventListener('click', () => this.openSettings());
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => this.openSettings());
         }
         
         if (closeSettings) {
@@ -197,6 +220,7 @@ class PomodoroTimer {
         this.isPaused = false;
         
         this.startBtn.disabled = true;
+        this.workTimeInput.disabled = true;
         this.pauseBtn.disabled = false;
         this.resetBtn.disabled = false;
         
@@ -230,6 +254,7 @@ class PomodoroTimer {
         this.stopBackgroundSounds();
         
         this.startBtn.disabled = false;
+        this.workTimeInput.disabled = false;
         this.pauseBtn.disabled = true;
         
         this.updateStatus();
@@ -257,6 +282,7 @@ class PomodoroTimer {
         this.updateCircularTimer();
         
         this.startBtn.disabled = false;
+        this.workTimeInput.disabled = false;
         this.pauseBtn.disabled = true;
         this.resetBtn.disabled = true;
     }
@@ -309,6 +335,7 @@ class PomodoroTimer {
         }
         
         this.startBtn.disabled = false;
+        this.workTimeInput.disabled = false;
         this.pauseBtn.disabled = true;
     }
 
@@ -331,6 +358,7 @@ class PomodoroTimer {
             this.updateCircularTimer();
             
             this.startBtn.disabled = false;
+            this.workTimeInput.disabled = false;
             this.pauseBtn.disabled = true;
             this.resetBtn.disabled = true;
             
@@ -345,6 +373,7 @@ class PomodoroTimer {
             this.updateCircularTimer();
             
             this.startBtn.disabled = false;
+            this.workTimeInput.disabled = false;
             this.pauseBtn.disabled = true;
         }
     }
@@ -492,6 +521,22 @@ class PomodoroTimer {
         this.applyVolumeToAllSounds();
     }
 
+    initializeSettingsControl() {
+        const savedConfig = localStorage.getItem('pomodoro-settings');
+        if (savedConfig !== null) {
+            this.workTime = parseFloat(JSON.parse(savedConfig).workTime);
+            this.breakTime = parseFloat(JSON.parse(savedConfig).breakTime);
+            this.longBreakTime = this.workTime + this.breakTime;
+        }
+    }
+
+    saveSettingsPreferences() {
+        localStorage.setItem('pomodoro-settings', JSON.stringify({
+            workTime: this.workTime,
+            breakTime: this.breakTime,
+        }));
+    }
+
     updateVolume() {
         if (!this.volumeSlider) return;
         
@@ -604,6 +649,20 @@ class PomodoroTimer {
         localStorage.setItem('pomodoro-sounds', JSON.stringify([...this.selectedSounds]));
     }
 
+    openSounds() {
+        const modal = document.getElementById('soundsModal');
+        if (modal) {
+            modal.style.display = 'block';
+        }
+    }
+
+    closeSounds() {
+        const modal = document.getElementById('soundsModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
     openSettings() {
         const modal = document.getElementById('settingsModal');
         if (modal) {
@@ -614,6 +673,7 @@ class PomodoroTimer {
     closeSettings() {
         const modal = document.getElementById('settingsModal');
         if (modal) {
+            this.saveSettingsPreferences();
             modal.style.display = 'none';
         }
     }

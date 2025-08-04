@@ -221,7 +221,7 @@ body.dark-theme .setting-group small {
 }
 
 body.dark-theme .btn-secondary {
-    background: #3a3a3a;
+    background: #fafafa;
     color: #e0e0e0;
 }
 
@@ -253,7 +253,7 @@ body.dark-theme .moon-icon {
 }
 
 /* Settings Modal */
-.settings-modal {
+.sounds-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -265,7 +265,7 @@ body.dark-theme .moon-icon {
     backdrop-filter: blur(5px);
 }
 
-.settings-content {
+.modal-content {
     background: rgba(255, 255, 255, 0.95);
     margin: 2vh auto;
     padding: 0;
@@ -280,7 +280,7 @@ body.dark-theme .moon-icon {
     flex-direction: column;
 }
 
-.settings-header {
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -289,7 +289,7 @@ body.dark-theme .moon-icon {
     flex-shrink: 0;
 }
 
-.settings-header h2 {
+.modal-header h2 {
     color: #2c3e50;
     margin: 0;
     font-size: 1.5rem;
@@ -316,7 +316,7 @@ body.dark-theme .moon-icon {
     color: #2c3e50;
 }
 
-.settings-body {
+.modal-body {
     padding: 2rem;
     flex: 1;
     overflow-y: auto;
@@ -325,26 +325,26 @@ body.dark-theme .moon-icon {
 }
 
 /* Custom scrollbar for Webkit browsers */
-.settings-body::-webkit-scrollbar {
+.modal-body::-webkit-scrollbar {
     width: 8px;
 }
 
-.settings-body::-webkit-scrollbar-track {
+.modal-body::-webkit-scrollbar-track {
     background: #f0f0f0;
     border-radius: 10px;
 }
 
-.settings-body::-webkit-scrollbar-thumb {
+.modal-body::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 10px;
     border: 1px solid #f0f0f0;
 }
 
-.settings-body::-webkit-scrollbar-thumb:hover {
+.modal-body::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }
 
-.settings-description {
+.modal-content {
     color: #6c757d;
     margin-bottom: 1.5rem;
     font-size: 1rem;
@@ -415,15 +415,15 @@ body.dark-theme .moon-icon {
 }
 
 /* Dark theme modal styles */
-body.dark-theme .settings-content {
+body.dark-theme .modal-content {
     background: rgba(30, 30, 30, 0.95);
 }
 
-body.dark-theme .settings-header {
+body.dark-theme .modal-header {
     border-bottom-color: #404040;
 }
 
-body.dark-theme .settings-header h2 {
+body.dark-theme .modal-header h2 {
     color: #e0e0e0;
 }
 
@@ -436,7 +436,7 @@ body.dark-theme .close-btn:hover {
     color: #e0e0e0;
 }
 
-body.dark-theme .settings-description {
+body.dark-theme .modal-content {
     color: #b0b0b0;
 }
 
@@ -468,15 +468,15 @@ body.dark-theme .sound-option input[type="checkbox"]:hover {
 }
 
 /* Dark theme scrollbar */
-body.dark-theme .settings-body {
+body.dark-theme .modal-body {
     scrollbar-color: #667eea #2a2a2a;
 }
 
-body.dark-theme .settings-body::-webkit-scrollbar-track {
+body.dark-theme .modal-body::-webkit-scrollbar-track {
     background: #2a2a2a;
 }
 
-body.dark-theme .settings-body::-webkit-scrollbar-thumb {
+body.dark-theme .modal-body::-webkit-scrollbar-thumb {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: 1px solid #2a2a2a;
 }
@@ -495,16 +495,16 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 
 /* Timer Styles */
 .timer-display {
-    font-size: 1.8rem;
+    font-size: 3rem;
     font-weight: 300;
-    font-family: 'Courier New', monospace;
+    font-family: Tahoma, monospace;
     margin-bottom: 0.25rem;
     transition: all 0.3s ease;
     text-align: center;
 }
 
 .timer-display.work {
-    color: #e74c3c;
+    color: #6D65C7;
 }
 
 .timer-display.break {
@@ -516,7 +516,7 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 }
 
 .timer-label {
-    font-size: 0.7rem;
+    font-size: .85rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -525,7 +525,7 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 }
 
 .timer-label.work {
-    color: #e74c3c;
+    color: #6D65C7;
 }
 
 .timer-label.break {
@@ -545,8 +545,8 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 
 .circular-timer {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -575,7 +575,7 @@ body.dark-theme .settings-body::-webkit-scrollbar-thumb {
 
 /* Timer progress colors for different states */
 .circular-timer.work .timer-progress {
-    stroke: #e74c3c;
+    stroke: #6D65C7;
 }
 
 .circular-timer.break .timer-progress {
@@ -621,31 +621,21 @@ body.dark-theme .timer-label {
 }
 
 /* Progress Indicators */
-.progress-container {
-    margin-bottom: 2rem;
-}
-
-.progress-label {
-    font-size: 1rem;
-    color: #7f8c8d;
-    margin-bottom: 1rem;
-    font-weight: 600;
-}
-
 .pomodoro-indicators {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .pomodoro-dot {
-    width: 30px;
-    height: 30px;
-    background-image: url('assets/images/tomato.png');
+    width: 20px;
+    height: 20px;
+    background-color: #6D65C7;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 50%;
     border: none;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -658,13 +648,13 @@ body.dark-theme .timer-label {
 }
 
 .pomodoro-dot.completed {
-    background-image: url('assets/images/tomato_green.png');
+    background-color: #37CFA2;
     opacity: 1;
     transform: scale(1);
 }
 
 .pomodoro-dot.long-break {
-    background-image: url('assets/images/tomato.png');
+    background-image: #37CFA2;
     opacity: 1;
     transform: scale(1.1);
     filter: hue-rotate(200deg) saturate(1.5);
@@ -677,11 +667,16 @@ body.dark-theme .timer-label {
 }
 
 /* Settings */
-.settings-container {
-    background: #f8f9fa;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+.settings-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
 .setting-group {
@@ -729,14 +724,18 @@ body.dark-theme .timer-label {
 /* Controls */
 .controls {
     display: flex;
-    gap: 1rem;
+    gap: .8rem;
     justify-content: center;
+    margin-top: 1rem;
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
 }
 
 .btn {
-    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1rem;
     border: none;
     border-radius: 10px;
     font-size: 1rem;
@@ -745,7 +744,7 @@ body.dark-theme .timer-label {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    min-width: 120px;
+    min-width: 80px;
 }
 
 .btn-primary {
@@ -816,6 +815,11 @@ body.dark-theme .timer-label {
     .timer-display {
         font-size: 3rem;
     }
+
+    .circular-timer {
+        width: 240px;
+        height: 240px;
+    }
     
     .controls {
         flex-direction: column;
@@ -828,6 +832,18 @@ body.dark-theme .timer-label {
     }
 }
 
+@media (max-width: 375px) {
+    .volume-slider {
+        max-width: 44%;
+    }
+}
+
+@media (max-width: 320px) {
+    .volume-slider {
+        max-width: 30%;
+    }
+}
+
 /* Volume Control Styles */
 .volume-control {
     display: flex;
@@ -835,13 +851,13 @@ body.dark-theme .timer-label {
     margin-bottom: 1.5rem;
     padding: 0.75rem;
     border-radius: 10px;
+    gap: 1rem;
     background: #f8f9fa;
 }
 
 .volume-control label {
     font-weight: 500;
     color: #2c3e50;
-    margin-right: 1rem;
     min-width: 60px;
 }
 
@@ -853,14 +869,14 @@ body.dark-theme .timer-label {
     background: linear-gradient(to right, #667eea 0%, #667eea 30%, #ddd 30%, #ddd 100%);
     border-radius: 10px;
     outline: none;
-    margin: 0 1rem;
+    
 }
 
 .volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
     background: #667eea;
     cursor: pointer;
@@ -873,8 +889,8 @@ body.dark-theme .timer-label {
 }
 
 .volume-slider::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
+    width: 1rem;
+    height: 1rem;
     border: none;
     border-radius: 50%;
     background: #667eea;
@@ -890,8 +906,7 @@ body.dark-theme .timer-label {
 #volume-value {
     font-weight: 500;
     color: #2c3e50;
-    min-width: 40px;
-    text-align: right;
+    min-width: 30px;
 }
 
 /* Dark theme volume control */
@@ -906,4 +921,9 @@ body.dark-theme #volume-value {
 
 body.dark-theme .volume-slider {
     background: linear-gradient(to right, #667eea 0%, #667eea 30%, #555 30%, #555 100%);
+}
+
+.btn-icon {
+    width: 32px;
+    height: 32px;
 }
